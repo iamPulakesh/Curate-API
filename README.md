@@ -92,6 +92,7 @@ python -m app.main
 ### Recommendations
 
 -   `GET /recommendations/id={user_id}` → Get recommendations for a user
+-   `GET /recommendations/genres={item_genres}` → Get recommendations based on genre
 
 ------------------------------------------------------------------------
 
