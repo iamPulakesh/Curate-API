@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 # user Schemas
 class UserBase(BaseModel):
@@ -12,6 +13,10 @@ class UserResponse(UserBase):
     id: int
     class Config:
         from_attributes = True
+
+class UserUpdate(UserBase):
+    name: Optional[str]=None
+    preferences: Optional[str]=None
 
 # item Schemas
 class ItemBase(BaseModel):
