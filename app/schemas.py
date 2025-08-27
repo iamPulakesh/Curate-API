@@ -32,5 +32,5 @@ class ItemResponse(ItemBase):
 class Recommendation(BaseModel):
     user_id: int
     user_name: str
+    preferences: list[str]
     recommendations: list[str] 
-
