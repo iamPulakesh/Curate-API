@@ -6,7 +6,8 @@ from app.services import cache
 
 router = APIRouter(prefix="/recommendations", tags=["Recommendations"])
 
-@router.get("/{user_id}", response_model=schemas.Recommendation)
+# get recommendations by user_id
+@router.get("/id={user_id}", response_model=schemas.Recommendation)
 def get_recommendations(user_id: int, db: Session = Depends(get_db)) -> dict:
     cache_key = f"recommendations:{user_id}"
 
@@ -43,6 +44,36 @@ def get_recommendations(user_id: int, db: Session = Depends(get_db)) -> dict:
     result = {"user_id": user_id, "user_name": user.name,"preferences":user_genres,"recommendations": matched_items}
 
     # Save to cache
+    cache.set_cache(cache_key, result, ttl=300)
+
+    return result
+
+# get recommendations by item_genres
+@router.get("/genres={item_genres}", response_model=dict)
+def get_recommendations_by_item_genres(item_genres: str, db: Session = Depends(get_db)) -> dict:
+    cache_key = f"recommendations:item_genres:{item_genres}"
+
+    cached_result = cache.get_cache(cache_key)
+    if cached_result:
+        return cached_result
+
+    # Normalize item genres
+    normalized_item_genres = [g.strip().lower() for g in item_genres.split(",") if g.strip()]
+
+    # Fetch items
+    items = db.query(models.Item).all()
+    if not items:
+        return {"Genres": normalized_item_genres, "recommendations": []}
+
+    matched_items = []
+    for item in items:
+        if not item.genre:
+            continue
+        item_genres = [g.strip().lower() for g in item.genre.split(",") if g.strip()]
+        if any(pref in item_genres for pref in normalized_item_genres):
+            matched_items.append(item.title)
+
+    result = {"Genres": normalized_item_genres, "recommendations": matched_items}
     cache.set_cache(cache_key, result, ttl=300)
 
     return result
