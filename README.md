@@ -78,7 +78,7 @@ python -m app.main
 -   `POST /users/` → Create a new user
 -   `GET /users/` → List all users
 -   `GET /users/{name}` → Get user by Names
--   `PUT /users/{id}` → Update user
+-   `PUT /users/update{user_id}` → Update user details/preferences
 -   `DELETE /users/delete={id}` → Delete user
 
 ### Items
