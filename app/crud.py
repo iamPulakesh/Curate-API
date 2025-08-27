@@ -19,6 +19,16 @@ def delete_user(db: Session, user_id: int):
         db.commit()
     return db_user
 
+def update_user(db: Session, user_id: int, user: schemas.UserUpdate):
+    db_user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not db_user:
+        return None
+    for key, value in user.model_dump(exclude_unset=True).items():
+        setattr(db_user, key, value)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
 # item CRUD
 def create_item(db: Session, item: schemas.ItemCreate, owner_id: int = None):
     db_item = models.Item(**item.dict(), owner_id=owner_id)
