@@ -91,7 +91,7 @@ python -m app.main
 
 ### Recommendations
 
--   `GET /recommendations/{user_id}` → Get recommendations for a user
+-   `GET /recommendations/id={user_id}` → Get recommendations for a user
 
 ------------------------------------------------------------------------
 
