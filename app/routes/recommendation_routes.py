@@ -21,7 +21,7 @@ def get_recommendations(user_id: int, db: Session = Depends(get_db)) -> dict:
         raise HTTPException(status_code=404, detail="User not found")
 
     if not user.preferences:
-        result = {"user_id": user_id, "user_name": user.name, "recommendations": []}
+        result = {"user_id": user_id, "user_name": user.name,"recommendations": []}
         return result
 
     # Normalize preferences
@@ -30,7 +30,7 @@ def get_recommendations(user_id: int, db: Session = Depends(get_db)) -> dict:
     # Fetch items
     items = db.query(models.Item).all()
     if not items:
-        return {"user_id": user_id, "user_name": user.name, "recommendations": []}
+        return {"user_id": user_id, "user_name": user.name,"recommendations": []}
 
     matched_items = []
     for item in items:
@@ -40,7 +40,7 @@ def get_recommendations(user_id: int, db: Session = Depends(get_db)) -> dict:
         if any(pref in item_genres for pref in user_genres):
             matched_items.append(item.title)
 
-    result = {"user_id": user_id, "user_name": user.name, "recommendations": matched_items}
+    result = {"user_id": user_id, "user_name": user.name,"preferences":user_genres,"recommendations": matched_items}
 
     # Save to cache
     cache.set_cache(cache_key, result, ttl=300)
