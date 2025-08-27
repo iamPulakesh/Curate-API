@@ -75,23 +75,24 @@ python -m app.main
 
 ### Users
 
--   `POST /users/` → Create a new user\
--   `GET /users/` → List all users\
--   `GET /users/{id}` → Get user by ID\
--   `PUT /users/{id}` → Update user\
--   `DELETE /users/{id}` → Delete user
+-   `POST /users/` → Create a new user
+-   `GET /users/` → List all users
+-   `GET /users/{name}` → Get user by Names
+-   `PUT /users/{id}` → Update user
+-   `DELETE /users/delete={id}` → Delete user
 
 ### Items
 
--   `POST /items/` → Create a new item\
--   `GET /items/` → List all items\
--   `GET /items/{id}` → Get item by ID\
--   `PUT /items/{id}` → Update item\
+-   `POST /items/` → Create a new item
+-   `GET /items/` → List all items
+-   `GET /items/genre={genre}` → Get item by Genre
+-   `PUT /items/{id}` → Update item
 -   `DELETE /items/{id}` → Delete item
 
 ### Recommendations
 
--   `GET /recommendations/{user_id}` → Get recommendations for a user
+-   `GET /recommendations/id={user_id}` → Get recommendations for a user
+-   `GET /recommendations/genres={item_genres}` → Get recommendations based on genre
 
 ------------------------------------------------------------------------
 
