@@ -33,6 +33,11 @@ class ItemResponse(ItemBase):
     class Config:
         from_attributes = True
 
+class ItemUpdate(BaseModel):
+    title: Optional[str] = None
+    genre: Optional[str] = None
+    type: Optional[str] = None
+
 # recommendation Schemas
 class Recommendation(BaseModel):
     user_id: int
