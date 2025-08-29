@@ -78,7 +78,7 @@ python -m app.main
 -   `POST /users/` → Create a new user
 -   `GET /users/` → List all users
 -   `GET /users/{name}` → Get user by Names
--   `PUT /users/update{user_id}` → Update user details/preferences
+-   `PUT /users/update={user_id}` → Update user details/preferences
 -   `DELETE /users/delete={id}` → Delete user
 
 ### Items
@@ -86,8 +86,8 @@ python -m app.main
 -   `POST /items/` → Create a new item
 -   `GET /items/` → List all items
 -   `GET /items/genre={genre}` → Get item by Genre
--   `PUT /items/{id}` → Update item
--   `DELETE /items/{id}` → Delete item
+-   `PUT /items/update={item_id}` → Update item
+-   `DELETE /items/delete={item_id}` → Delete item
 
 ### Recommendations
 
